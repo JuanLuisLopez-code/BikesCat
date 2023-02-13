@@ -4,7 +4,7 @@ import UserService from "../services/UserService";
 import JwtService from "../services/JwtService";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-
+import EmailService from "../services/EmailService";
 
 export function useUser() {
     const navigate = useNavigate();
@@ -33,23 +33,29 @@ export function useUser() {
     }, []);
 
     const useRegister = useCallback((data) => {
-        UserService.Register({ 'user': data })
-            .then(({ data, status }) => {
-                if (status == 200) {
-                    setToken(data.token);
-                    JwtService.saveToken(data.token);
-                    setUser(data.user);
-                    setIsAuth(true);
-                    setIsAdmin(data.user.types === 'admin');
-                    toast.success('Register successfully');
-                    setErrorsUser('');
-                    navigate('/');
-                }
-            })
-            .catch((e) => {
-                console.error(e);
-                setErrorsUser(e.response.data[0]);
-            });
+
+        EmailService.sendEmail(data)
+
+
+
+
+        // UserService.Register({ 'user': data })
+        //     .then(({ data, status }) => {
+        //         if (status == 200) {
+        //             setToken(data.token);
+        //             JwtService.saveToken(data.token);
+        //             setUser(data.user);
+        //             setIsAuth(true);
+        //             setIsAdmin(data.user.types === 'admin');
+        //             toast.success('Register successfully');
+        //             setErrorsUser('');
+        //             navigate('/');
+        //         }
+        //     })
+        //     .catch((e) => {
+        //         console.error(e);
+        //         setErrorsUser(e.response.data[0]);
+        //     });
     }, []);
 
     const useLogout = useCallback(() => {
