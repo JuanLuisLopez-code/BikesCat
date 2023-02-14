@@ -26,9 +26,13 @@ const useAxios = () => {
         (response) => response,
         (error) => {
             if (error.response.status === 403) {
-                sessionStorage.removeItem("time")
-                JwtService.destroyToken();
-                window.location.reload();
+                if (error.response.data.detail == 'You are not an active') {
+                    console.log("TENGO QUE HACER REDIRECT")
+                } else {
+                    sessionStorage.removeItem("time")
+                    JwtService.destroyToken();
+                    window.location.reload();
+                }
             }
             return Promise.reject(error);
         }

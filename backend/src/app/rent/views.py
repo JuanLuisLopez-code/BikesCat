@@ -2,13 +2,13 @@ from rest_framework.response import Response
 from rest_framework import viewsets, status
 from .serializers import RentSerializer
 from rest_framework.permissions import (IsAuthenticated)
-from src.app.core.permissions import IsAdmin
+from src.app.core.permissions import IsAdmin, IsActive
 from .models import Rent
 from rest_framework.permissions import (
     AllowAny)
 
 class RentAuthenticatedView(viewsets.GenericViewSet):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsActive]
 
     def getOneRent(self, request):
         username = request.user
