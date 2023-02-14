@@ -48,7 +48,17 @@ class UserView(viewsets.GenericViewSet):
         serializer = userSerializer.login(serializer_context)
         return Response(serializer)
 
-    
+    def changeActive(self, request):
+
+        email = request.data
+
+        serializer_context = {
+            'email': email,
+        }
+
+        serializer = userSerializer.changeActive(context=serializer_context)
+
+        return Response("changeActive END")
 
 
 class UserAuthenticatedView(viewsets.GenericViewSet):

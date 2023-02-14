@@ -21,7 +21,7 @@ class userSerializer(serializers.ModelSerializer):
                 'username': user.username,
                 'email': user.email,
                 'types': user.types,
-                'is_active':user.is_active
+                'is_active': user.is_active
             },
         }
 
@@ -94,4 +94,21 @@ class userSerializer(serializers.ModelSerializer):
 
         return {
             'token': user.token
+        }
+
+    def changeActive(context):
+        email = context['email']
+
+        user = User.objects.get(email=email)
+        print(user)
+        if (user.is_active == False):
+            user.is_active = True
+            user.save()
+        else:
+            raise exceptions.AuthenticationFailed("error")
+
+        return {
+            'user': {
+                'email': user.email,
+            }
         }

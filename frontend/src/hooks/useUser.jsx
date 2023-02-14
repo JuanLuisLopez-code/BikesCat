@@ -71,5 +71,17 @@ export function useUser() {
             })
     }, []);
 
-    return { user, setUser, useRegister, useLogin, useLogout, refreshToken, errorsUser, setErrorsUser }
+    const changeActive = (data) => {
+        UserService.ChangeActive(data)
+            .then(({ dataThen, status }) => {
+                if (status == 200) {
+                    setTimeout(() => {
+                        navigate('/home');
+                        window.location.reload();
+                    }, 3000);
+                }
+            })
+    }
+
+    return { user, setUser, useRegister, useLogin, useLogout, refreshToken, errorsUser, setErrorsUser, changeActive }
 }

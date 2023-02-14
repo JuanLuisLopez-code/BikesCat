@@ -32,6 +32,7 @@ const useAxios = () => {
                     sessionStorage.removeItem("time")
                     JwtService.destroyToken();
                     window.location.reload();
+                    window.location.href = "/"
                 }
             }
             return Promise.reject(error);
