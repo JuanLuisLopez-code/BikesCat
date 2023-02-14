@@ -33,29 +33,17 @@ export function useUser() {
     }, []);
 
     const useRegister = useCallback((data) => {
-
-        EmailService.sendEmail(data)
-
-
-
-
-        // UserService.Register({ 'user': data })
-        //     .then(({ data, status }) => {
-        //         if (status == 200) {
-        //             setToken(data.token);
-        //             JwtService.saveToken(data.token);
-        //             setUser(data.user);
-        //             setIsAuth(true);
-        //             setIsAdmin(data.user.types === 'admin');
-        //             toast.success('Register successfully');
-        //             setErrorsUser('');
-        //             navigate('/');
-        //         }
-        //     })
-        //     .catch((e) => {
-        //         console.error(e);
-        //         setErrorsUser(e.response.data[0]);
-        //     });
+        UserService.Register({ 'user': data })
+            .then(({ data, status }) => {
+                if (status == 200) {
+                    EmailService.sendEmail(data);
+                    toast.success("Please check you'r email for continue");
+                }
+            })
+            .catch((e) => {
+                console.error(e);
+                setErrorsUser(e.response.data[0]);
+            });
     }, []);
 
     const useLogout = useCallback(() => {

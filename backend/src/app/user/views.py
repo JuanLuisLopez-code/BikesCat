@@ -30,7 +30,7 @@ class UserView(viewsets.GenericViewSet):
         }
 
         serializer = userSerializer.register(serializer_context)
-        return Response(serializer)
+        return Response("Register END")
 
     def login(self, request):
         data = request.data['user']

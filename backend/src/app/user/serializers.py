@@ -42,14 +42,7 @@ class userSerializer(serializers.ModelSerializer):
             username=username,
             password=password
         )
-        return {
-            'user': {
-                'username': user.username,
-                'email': user.email,
-                'types': user.types
-            },
-            'token': user.token,
-        }
+        return user
 
     def login(context):
         username = context['username']
