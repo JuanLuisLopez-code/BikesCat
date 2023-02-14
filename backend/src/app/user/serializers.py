@@ -20,7 +20,8 @@ class userSerializer(serializers.ModelSerializer):
             'user': {
                 'username': user.username,
                 'email': user.email,
-                'types': user.types
+                'types': user.types,
+                'is_active': user.is_active
             },
         }
 
@@ -42,14 +43,7 @@ class userSerializer(serializers.ModelSerializer):
             username=username,
             password=password
         )
-        return {
-            'user': {
-                'username': user.username,
-                'email': user.email,
-                'types': user.types
-            },
-            'token': user.token,
-        }
+        return user
 
     def login(context):
         username = context['username']
@@ -100,4 +94,21 @@ class userSerializer(serializers.ModelSerializer):
 
         return {
             'token': user.token
+        }
+
+    def changeActive(context):
+        email = context['email']
+
+        user = User.objects.get(email=email)
+        print(user)
+        if (user.is_active == False):
+            user.is_active = True
+            user.save()
+        else:
+            raise exceptions.AuthenticationFailed("error")
+
+        return {
+            'user': {
+                'email': user.email,
+            }
         }

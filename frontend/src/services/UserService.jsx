@@ -21,7 +21,11 @@ const UserService = {
     RefreshToken() {
         Api().post('logout');
         return Api().post('refreshToken');
-    }
+    },
+
+    ChangeActive(data) {
+        return Api().put('changeActive', atob(data));
+    },
 }
 
 export default UserService;

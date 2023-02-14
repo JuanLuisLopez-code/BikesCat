@@ -55,6 +55,9 @@ function App() {
   const Profile = React.lazy(() => import('./pages/Profile/Profile'));
   const NotificationsUser = React.lazy(() => import('./pages/NotificationsUser/NotificationsUser'));
 
+  //Authenticated
+  const AuthenticatedUser = React.lazy(() => import('./pages/Authenticated/Authenticated'));
+
   return (
     <div>
       <Suspense fallback={<Loading />}>
@@ -114,6 +117,8 @@ function App() {
                           <Route path="/profile" element={<Profile />} />
                           <Route path="/notifications" element={<NotificationsUser />} />
                         </Route>
+                        <Route path="/authenticate" element={<AuthenticatedUser />} />
+                        <Route path="/authenticate/:email" element={<AuthenticatedUser />} />
                       </Routes>
                       <Footer />
                     </NotificationsContextProvider>

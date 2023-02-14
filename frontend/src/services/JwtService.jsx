@@ -1,6 +1,9 @@
 const JwtService = {
 
-    destroyToken: () => localStorage.removeItem('token'),
+    destroyToken: () => {
+        localStorage.removeItem('token'),
+            localStorage.removeItem("active")
+    },
 
     saveToken: (token) => {
         localStorage.setItem('token', token)

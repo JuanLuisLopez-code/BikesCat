@@ -26,9 +26,14 @@ const useAxios = () => {
         (response) => response,
         (error) => {
             if (error.response.status === 403) {
-                sessionStorage.removeItem("time")
-                JwtService.destroyToken();
-                window.location.reload();
+                if (error.response.data.detail == 'You are not an active') {
+                    window.location.href = "/authenticate"
+                } else {
+                    sessionStorage.removeItem("time")
+                    JwtService.destroyToken();
+                    window.location.reload();
+                    window.location.href = "/"
+                }
             }
             return Promise.reject(error);
         }

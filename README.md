@@ -1,16 +1,16 @@
-# React_DRF_MySQL_CatBikes
+# React_DRF_MySQL_BikesCat
 
 Por [`Juan Luis López del Barco`](https://github.com/JuanLuisLopez-code)
 
 ## Table of Contents
 
-1. CatBikes
+1. BikesCat
 2. Instalar
 3. Tecnologias
 
 
-# CatBikes! 😺 🚲
-_Bienvenidas y bienvenidos a CatBikes_
+# BikesCat! 😺 🚲
+_Bienvenidas y bienvenidos a BikesCat_
 
 1. **Home:**
    Carousel, mapa indicando las estaciones e infiniteScroll

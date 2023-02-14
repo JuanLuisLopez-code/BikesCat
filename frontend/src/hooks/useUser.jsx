@@ -4,7 +4,7 @@ import UserService from "../services/UserService";
 import JwtService from "../services/JwtService";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-
+import EmailService from "../services/EmailService";
 
 export function useUser() {
     const navigate = useNavigate();
@@ -34,16 +34,13 @@ export function useUser() {
 
     const useRegister = useCallback((data) => {
         UserService.Register({ 'user': data })
-            .then(({ data, status }) => {
+            .then(({ dataThen, status }) => {
                 if (status == 200) {
-                    setToken(data.token);
-                    JwtService.saveToken(data.token);
-                    setUser(data.user);
-                    setIsAuth(true);
-                    setIsAdmin(data.user.types === 'admin');
-                    toast.success('Register successfully');
-                    setErrorsUser('');
-                    navigate('/');
+                    EmailService.sendEmail(data);
+                    toast.success("Please check you'r email for continue");
+                    setTimeout(() => {
+                        navigate('/home');
+                    }, 1000);
                 }
             })
             .catch((e) => {
@@ -74,5 +71,17 @@ export function useUser() {
             })
     }, []);
 
-    return { user, setUser, useRegister, useLogin, useLogout, refreshToken, errorsUser, setErrorsUser }
+    const changeActive = (data) => {
+        UserService.ChangeActive(data)
+            .then(({ dataThen, status }) => {
+                if (status == 200) {
+                    setTimeout(() => {
+                        navigate('/home');
+                        window.location.reload();
+                    }, 3000);
+                }
+            })
+    }
+
+    return { user, setUser, useRegister, useLogin, useLogout, refreshToken, errorsUser, setErrorsUser, changeActive }
 }
