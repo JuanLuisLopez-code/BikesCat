@@ -7,7 +7,7 @@ const Footer = () => {
 
             <div className="footer-content">
 
-                <h3>CatBikes</h3>
+                <h3>BikesCat</h3>
 
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vitae felis scelerisque, gravida sapien non, cursus augue. Aenean id pretium turpis. Suspendisse eros nunc, sollicitudin nec.</p>
 
@@ -19,7 +19,6 @@ const Footer = () => {
 
                 <div className="footer-menu">
                     <ul className="f-menu">
-                        <li><a href="https://github.com/sergimicoortiz">Sergi Micó Ortiz</a></li>
                         <li><a href="https://github.com/JuanLuisLopez-code">Juan Luis López</a></li>
                     </ul>
 

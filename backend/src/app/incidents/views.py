@@ -2,7 +2,7 @@ from rest_framework.response import Response
 from rest_framework.generics import get_object_or_404
 from rest_framework import viewsets, status
 from rest_framework.permissions import (IsAuthenticated)
-from src.app.core.permissions import IsAdmin
+from src.app.core.permissions import IsAdmin, IsActive
 from .models import Incident
 from .serializers import IncidentSerializer, NotificationSerializer
 from rest_framework.permissions import (
@@ -13,7 +13,7 @@ class IncidentView(viewsets.GenericViewSet):
 
     def get_permissions(self):
         if self.request.method == 'POST':
-            self.permission_classes = [IsAuthenticated]
+            self.permission_classes = [IsAuthenticated, IsActive]
         else:
             self.permission_classes = [IsAdmin]
         return super(IncidentView, self).get_permissions()

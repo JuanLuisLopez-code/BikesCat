@@ -34,10 +34,13 @@ export function useUser() {
 
     const useRegister = useCallback((data) => {
         UserService.Register({ 'user': data })
-            .then(({ data, status }) => {
+            .then(({ dataThen, status }) => {
                 if (status == 200) {
                     EmailService.sendEmail(data);
                     toast.success("Please check you'r email for continue");
+                    setTimeout(() => {
+                        navigate('/home');
+                    }, 1000);
                 }
             })
             .catch((e) => {

@@ -27,7 +27,7 @@ const useAxios = () => {
         (error) => {
             if (error.response.status === 403) {
                 if (error.response.data.detail == 'You are not an active') {
-                    console.log("TENGO QUE HACER REDIRECT")
+                    window.location.href = "/authenticate"
                 } else {
                     sessionStorage.removeItem("time")
                     JwtService.destroyToken();
