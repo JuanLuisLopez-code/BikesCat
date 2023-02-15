@@ -72,6 +72,18 @@ class UserView(viewsets.GenericViewSet):
 
         return Response(serializer)
 
+    def RecoveryPassword(self, request):
+
+        serializer_context = {
+            'password': request.data['password'],
+            'token': request.data['token'],
+        }
+
+        serializer = userSerializer.RecoveryPassword(
+            context=serializer_context)
+
+        return Response("asd")
+
 
 class UserAuthenticatedView(viewsets.GenericViewSet):
     permission_classes = [IsAuthenticated]

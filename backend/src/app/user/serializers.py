@@ -131,3 +131,23 @@ class userSerializer(serializers.ModelSerializer):
             },
             'token': user.token
         }
+
+    def RecoveryPassword(context):
+        print(context)
+
+        tokenForgotPassword = context['token']
+        password = context['password']
+
+        try:
+            user = User.objects.get(
+                tokenForgotPassword=tokenForgotPassword)
+            user.tokenForgotPassword = None
+            user.set_password(password)
+            user.is_active = True
+            user.save()
+        except:
+            raise serializers.ValidationError(
+                'Something is wrong.'
+            )
+
+        return "asd"

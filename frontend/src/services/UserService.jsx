@@ -32,7 +32,7 @@ const UserService = {
     },
 
     RecoveryPassword(data, token) {
-        return Api().put('RecoveryPassword')
+        return Api().put('forgot/RecoveryPassword', { "password": data.password, "token": atob(token) })
     }
 }
 

@@ -88,6 +88,11 @@ export function useUser() {
             .then((dataThen) => {
                 if (dataThen.status == 200) {
                     EmailService.forgotPassword(dataThen.data)
+                    toast.success("Check email for more information please")
+                    setTimeout(() => {
+                        navigate('/login');
+                        window.location.reload();
+                    }, 3000);
                 }
             })
             .catch((e) => {
@@ -96,8 +101,16 @@ export function useUser() {
     }
 
     const RecoveryPassword = (data, token) => {
-        console.log(data, "recovery")
-        console.log(token, "recovery")
+        UserService.RecoveryPassword(data, token)
+            .then((dataThen) => {
+                if (dataThen.status == 200) {
+                    toast.success("Now you can login with new password")
+                    setTimeout(() => {
+                        navigate('/login');
+                        window.location.reload();
+                    }, 3000);
+                }
+            })
     }
 
     return { user, setUser, useRegister, useLogin, useLogout, refreshToken, errorsUser, setErrorsUser, changeActive, ForgotPassword, RecoveryPassword }
