@@ -56,9 +56,21 @@ class UserView(viewsets.GenericViewSet):
             'email': email,
         }
 
-        serializer = userSerializer.changeActive(context=serializer_context)
+        userSerializer.changeActive(context=serializer_context)
 
         return Response("changeActive END")
+    
+    def forgotPassword(self, request):
+
+        email = request.data
+
+        serializer_context = {
+            'email': email,
+        }
+
+        userSerializer.forgotPassword(context=serializer_context)
+
+        return Response("forgotPassword END")
 
 
 class UserAuthenticatedView(viewsets.GenericViewSet):

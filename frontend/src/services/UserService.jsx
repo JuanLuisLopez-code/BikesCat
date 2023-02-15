@@ -26,6 +26,10 @@ const UserService = {
     ChangeActive(data) {
         return Api().put('changeActive', atob(data));
     },
+
+    ForgotPassword(data) {
+        return Api().put('forgotPassword', data)
+    }
 }
 
 export default UserService;

@@ -50,6 +50,7 @@ function App() {
   //Login/Register
   const Login = React.lazy(() => import('./pages/Login/Login'));
   const Register = React.lazy(() => import('./pages/Login/Register'));
+  const Forgot = React.lazy(() => import('./pages/Login/Forgot'));
 
   //Profile
   const Profile = React.lazy(() => import('./pages/Profile/Profile'));
@@ -111,6 +112,7 @@ function App() {
                         <Route element={<NoAuthGuard />}>
                           <Route path="/login" element={<Login />} />
                           <Route path="/register" element={<Register />} />
+                          <Route path="/forgot" element={<Forgot />} />
                         </Route>
                         {/* Profile */}
                         <Route element={<AuthGuard />}>

@@ -83,5 +83,12 @@ export function useUser() {
             })
     }
 
-    return { user, setUser, useRegister, useLogin, useLogout, refreshToken, errorsUser, setErrorsUser, changeActive }
+    const ForgotPassword = (data) => {
+        UserService.ForgotPassword(data)
+            .then(({ dataThen }) => {
+                console.log(dataThen)
+            })
+    }
+
+    return { user, setUser, useRegister, useLogin, useLogout, refreshToken, errorsUser, setErrorsUser, changeActive, ForgotPassword }
 }

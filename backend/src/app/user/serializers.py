@@ -100,9 +100,23 @@ class userSerializer(serializers.ModelSerializer):
         email = context['email']
 
         user = User.objects.get(email=email)
-        print(user)
         if (user.is_active == False):
             user.is_active = True
+            user.save()
+        else:
+            raise exceptions.AuthenticationFailed("error")
+
+        return {
+            'user': {
+                'email': user.email,
+            }
+        }
+
+    def forgotPassword(context):
+        email = context['email']
+        user = User.objects.get(email=email['email'])
+        if (user.is_active == True):
+            user.is_active = False
             user.save()
         else:
             raise exceptions.AuthenticationFailed("error")
