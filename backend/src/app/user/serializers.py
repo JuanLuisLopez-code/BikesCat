@@ -100,7 +100,6 @@ class userSerializer(serializers.ModelSerializer):
         email = context['email']
 
         user = User.objects.get(email=email)
-        print(user)
         if (user.is_active == False):
             user.is_active = True
             user.save()
@@ -112,3 +111,43 @@ class userSerializer(serializers.ModelSerializer):
                 'email': user.email,
             }
         }
+
+    def forgotPassword(context):
+        email = context['email']
+        user = User.objects.get(email=email['email'])
+        if (user.is_active == True):
+            user.is_active = False
+            user.tokenForgotPassword = user.token
+            user.save()
+        else:
+            raise serializers.ValidationError(
+                'User is waiting for change password.'
+            )
+
+        return {
+            'user': {
+                'username': user.username,
+                'is_active': user.is_active,
+            },
+            'token': user.token
+        }
+
+    def RecoveryPassword(context):
+        print(context)
+
+        tokenForgotPassword = context['token']
+        password = context['password']
+
+        try:
+            user = User.objects.get(
+                tokenForgotPassword=tokenForgotPassword)
+            user.tokenForgotPassword = None
+            user.set_password(password)
+            user.is_active = True
+            user.save()
+        except:
+            raise serializers.ValidationError(
+                'Something is wrong.'
+            )
+
+        return "asd"

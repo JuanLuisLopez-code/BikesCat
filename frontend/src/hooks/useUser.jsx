@@ -83,5 +83,35 @@ export function useUser() {
             })
     }
 
-    return { user, setUser, useRegister, useLogin, useLogout, refreshToken, errorsUser, setErrorsUser, changeActive }
+    const ForgotPassword = (data) => {
+        UserService.ForgotPassword(data)
+            .then((dataThen) => {
+                if (dataThen.status == 200) {
+                    EmailService.forgotPassword(dataThen.data)
+                    toast.success("Check email for more information please")
+                    setTimeout(() => {
+                        navigate('/login');
+                        window.location.reload();
+                    }, 3000);
+                }
+            })
+            .catch((e) => {
+                toast.error("This user is already waiting for new password")
+            })
+    }
+
+    const RecoveryPassword = (data, token) => {
+        UserService.RecoveryPassword(data, token)
+            .then((dataThen) => {
+                if (dataThen.status == 200) {
+                    toast.success("Now you can login with new password")
+                    setTimeout(() => {
+                        navigate('/login');
+                        window.location.reload();
+                    }, 3000);
+                }
+            })
+    }
+
+    return { user, setUser, useRegister, useLogin, useLogout, refreshToken, errorsUser, setErrorsUser, changeActive, ForgotPassword, RecoveryPassword }
 }

@@ -26,6 +26,14 @@ const UserService = {
     ChangeActive(data) {
         return Api().put('changeActive', atob(data));
     },
+
+    ForgotPassword(data) {
+        return Api().put('forgotPassword', data)
+    },
+
+    RecoveryPassword(data, token) {
+        return Api().put('forgot/RecoveryPassword', { "password": data.password, "token": atob(token) })
+    }
 }
 
 export default UserService;
