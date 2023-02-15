@@ -29,6 +29,10 @@ const UserService = {
 
     ForgotPassword(data) {
         return Api().put('forgotPassword', data)
+    },
+
+    RecoveryPassword(data, token) {
+        return Api().put('RecoveryPassword')
     }
 }
 

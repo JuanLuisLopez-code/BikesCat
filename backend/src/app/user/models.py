@@ -42,6 +42,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
 
     countTokens = models.IntegerField(default=0)
+    tokenForgotPassword = models.SlugField(
+        max_length=254, unique=True, editable=False, null=True)
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']

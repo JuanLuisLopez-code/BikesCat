@@ -117,12 +117,17 @@ class userSerializer(serializers.ModelSerializer):
         user = User.objects.get(email=email['email'])
         if (user.is_active == True):
             user.is_active = False
+            user.tokenForgotPassword = user.token
             user.save()
         else:
-            raise exceptions.AuthenticationFailed("error")
+            raise serializers.ValidationError(
+                'User is waiting for change password.'
+            )
 
         return {
             'user': {
-                'email': user.email,
-            }
+                'username': user.username,
+                'is_active': user.is_active,
+            },
+            'token': user.token
         }

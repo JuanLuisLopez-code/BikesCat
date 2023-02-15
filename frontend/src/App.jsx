@@ -113,6 +113,7 @@ function App() {
                           <Route path="/login" element={<Login />} />
                           <Route path="/register" element={<Register />} />
                           <Route path="/forgot" element={<Forgot />} />
+                          <Route path="/forgot/:token" element={<Forgot />} />
                         </Route>
                         {/* Profile */}
                         <Route element={<AuthGuard />}>

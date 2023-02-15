@@ -85,10 +85,20 @@ export function useUser() {
 
     const ForgotPassword = (data) => {
         UserService.ForgotPassword(data)
-            .then(({ dataThen }) => {
-                console.log(dataThen)
+            .then((dataThen) => {
+                if (dataThen.status == 200) {
+                    EmailService.forgotPassword(dataThen.data)
+                }
+            })
+            .catch((e) => {
+                toast.error("This user is already waiting for new password")
             })
     }
 
-    return { user, setUser, useRegister, useLogin, useLogout, refreshToken, errorsUser, setErrorsUser, changeActive, ForgotPassword }
+    const RecoveryPassword = (data, token) => {
+        console.log(data, "recovery")
+        console.log(token, "recovery")
+    }
+
+    return { user, setUser, useRegister, useLogin, useLogout, refreshToken, errorsUser, setErrorsUser, changeActive, ForgotPassword, RecoveryPassword }
 }
