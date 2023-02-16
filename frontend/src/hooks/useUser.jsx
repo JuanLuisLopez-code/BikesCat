@@ -12,6 +12,17 @@ export function useUser() {
     const [errorsUser, setErrorsUser] = useState('');
 
     const useLogin = useCallback((data) => {
+        let prueba = {}
+        if (data.type_register == "google" || data.type_register == "github") {
+            prueba = {
+                "username": data.displayName,
+                "type_register": data.type_register,
+                "password": "0"
+            }
+            data = prueba
+        } else {
+            data.type_register = "email"
+        }
         UserService.Login({ 'user': data })
             .then(({ data, status }) => {
                 if (status === 200) {
@@ -33,6 +44,18 @@ export function useUser() {
     }, []);
 
     const useRegister = useCallback((data) => {
+        let prueba = {}
+        if (data.type_register == "google" || data.type_register == "github") {
+            prueba = {
+                "username": data.displayName,
+                "email": data.email,
+                "type_register": data.type_register,
+                "password": "0"
+            }
+            data = prueba
+        } else {
+            data.type_register = "email"
+        }
         UserService.Register({ 'user': data })
             .then(({ dataThen, status }) => {
                 if (status == 200) {
