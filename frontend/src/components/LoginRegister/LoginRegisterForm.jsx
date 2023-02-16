@@ -98,9 +98,9 @@ const LoginRegisterForm = ({ sendData, errorsUser }) => {
 
     const nameButton = path === 'forgot' && token
         ?
-        <button>Recovery</button>
+        <button className="buttonPath">Recovery</button>
         :
-        <button>{path}</button>
+        <button className="buttonPath">{path}</button>
 
     const recoveryPassword = token
         ?
@@ -132,11 +132,16 @@ const LoginRegisterForm = ({ sendData, errorsUser }) => {
                     <div className="error">{errorsUser}</div>
                     {recoveryPassword}
                     {nameButton}
+                    <div className="col-lg-5">
+                        <button className="btn btn-block social-login google" onClick={getGoogleLog}>
+                            <span className="social-icons">
+                                <img src="https://cdn-icons-png.flaticon.com/512/300/300221.png" alt="" style={{"width" : "10%"}} />
+                            </span>
+                            <span className="align-middle">Login with Google</span>
+                        </button>
+                    </div>
                     {redirectButton}
                     <p className="message">Forgot Password? <a onClick={() => navigate('/forgot')}>Click here</a></p>
-
-                    <button onClick={getGoogleLog}>SingIn with Google</button>
-
                 </form>
             </div>
         </div>

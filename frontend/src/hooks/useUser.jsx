@@ -17,6 +17,7 @@ export function useUser() {
             prueba = {
                 "username": data.displayName,
                 "type_register": data.type_register,
+                "password": "0"
             }
             data = prueba
         } else {

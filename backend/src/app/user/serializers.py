@@ -103,6 +103,40 @@ class userSerializer(serializers.ModelSerializer):
             'token': user.token
         }
 
+    def login_firebase(context):
+        username = context['username']
+        type_register = context['type_register']
+        if username is None:
+            raise serializers.ValidationError(
+                'An username is required to log in.'
+            )
+
+        if type_register is None:
+            raise serializers.ValidationError(
+                'An type_register is required to log in.'
+            )
+
+        try:
+            user = User.objects.get(username=username)
+            if (user.type_register != "email"):
+                user.countTokens = 0
+                user.save()
+            else:
+                raise exceptions.AuthenticationFailed("error")
+        except:
+            raise serializers.ValidationError(
+                'Username or password incorrects.'
+            )
+
+        return {
+            'user': {
+                'username': user.username,
+                'email': user.email,
+                'types': user.types
+            },
+            'token': user.token
+        }
+
     def refreshToken(context):
 
         username = context['username']

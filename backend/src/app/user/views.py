@@ -13,15 +13,6 @@ class UserView(viewsets.GenericViewSet):
 
     def register(self, request):
         data = request.data['user']
-        print("--------------")
-        print("--------------")
-        print("--------------")
-        print("--------------")
-        print("--------------")
-        print("--------------")
-        print("--------------")
-        print(data)
-
         if data['email'] is None:
             raise NotFound("Email is required!")
 
@@ -39,10 +30,8 @@ class UserView(viewsets.GenericViewSet):
             'type_register': data['type_register']
         }
 
-        print(serializer_context)
-
         if data['password'] == "0":
-            serializer = userSerializer.register(serializer_context)
+            serializer = userSerializer.register_firebase(serializer_context)
             return Response("Register END")
 
         serializer = userSerializer.register(serializer_context)
@@ -51,16 +40,23 @@ class UserView(viewsets.GenericViewSet):
     def login(self, request):
         data = request.data['user']
 
-        if data['password'] is None:
-            raise NotFound("Password is required!")
+        if data['type_register'] == "email":
+            if data['password'] is None:
+                raise NotFound("Password is required!")
 
         if data['username'] is None:
             raise NotFound("Username is required!")
 
         serializer_context = {
             'username': data['username'],
-            'password': data['password']
+            'password': data['password'],
+            'type_register': data['type_register']
         }
+
+        if data['password'] == "0" and data['type_register'] != "email":
+            serializer = userSerializer.login_firebase(serializer_context)
+            return Response(serializer)
+
         serializer = userSerializer.login(serializer_context)
         return Response(serializer)
 
