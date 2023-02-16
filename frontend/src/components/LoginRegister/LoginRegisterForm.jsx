@@ -114,7 +114,8 @@ const LoginRegisterForm = ({ sendData, errorsUser }) => {
     const getGoogleLog = () => {
         signInWithPopup(auth, provider)
             .then((data) => {
-                console.log(data.user)
+                data.user.type_register = "google"
+                sendData(data.user)
             })
     }
 

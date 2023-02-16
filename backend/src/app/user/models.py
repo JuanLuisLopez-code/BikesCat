@@ -8,12 +8,22 @@ from datetime import datetime, timedelta
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, username, email, password):
+    def create_user(self, username, email, type_register, password):
         user = self.model(
             email=self.normalize_email(email),
             username=username,
+            type_register=type_register,
         )
         user.set_password(password)
+        user.save()
+        return user
+
+    def create_user_firebase(self, username, email, type_register):
+        user = self.model(
+            email=self.normalize_email(email),
+            username=username,
+            type_register=type_register,
+        )
         user.save()
         return user
 
@@ -44,6 +54,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     countTokens = models.IntegerField(default=0)
     tokenForgotPassword = models.SlugField(
         max_length=254, unique=True, editable=False, null=True)
+    type_register = models.CharField(
+        'type_register', max_length=30, unique=False, null=True)
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']

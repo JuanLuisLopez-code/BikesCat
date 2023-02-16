@@ -30,6 +30,7 @@ class userSerializer(serializers.ModelSerializer):
         email = context['email']
         password = context['password']
         username = context['username']
+        type_register = context['type_register']
 
         username_exist = len(User.objects.filter(username=username))
         email_exist = len(User.objects.filter(email=email))
@@ -41,7 +42,28 @@ class userSerializer(serializers.ModelSerializer):
         user = User.objects.create_user(
             email=email,
             username=username,
-            password=password
+            password=password,
+            type_register=type_register
+        )
+        return user
+
+    def register_firebase(context):
+
+        email = context['email']
+        type_register = context['type_register']
+        username = context['username']
+
+        username_exist = len(User.objects.filter(username=username))
+        email_exist = len(User.objects.filter(email=email))
+        if (email_exist > 0 or username_exist > 0):
+            raise serializers.ValidationError(
+                'Username or email already exists.'
+            )
+
+        user = User.objects.create_user_firebase(
+            email=email,
+            username=username,
+            type_register=type_register
         )
         return user
 

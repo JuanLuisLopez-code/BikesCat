@@ -13,21 +13,37 @@ class UserView(viewsets.GenericViewSet):
 
     def register(self, request):
         data = request.data['user']
+        print("--------------")
+        print("--------------")
+        print("--------------")
+        print("--------------")
+        print("--------------")
+        print("--------------")
+        print("--------------")
+        print(data)
 
         if data['email'] is None:
             raise NotFound("Email is required!")
 
-        if data['password'] is None:
-            raise NotFound("Password is required!")
-
         if data['username'] is None:
             raise NotFound("Username is required!")
+
+        if data['type_register'] == "email":
+            if data['password'] is None:
+                raise NotFound("Password is required!")
 
         serializer_context = {
             'email': data['email'],
             'password': data['password'],
-            'username': data['username']
+            'username': data['username'],
+            'type_register': data['type_register']
         }
+
+        print(serializer_context)
+
+        if data['password'] == "0":
+            serializer = userSerializer.register(serializer_context)
+            return Response("Register END")
 
         serializer = userSerializer.register(serializer_context)
         return Response("Register END")
