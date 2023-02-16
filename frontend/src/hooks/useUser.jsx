@@ -13,7 +13,7 @@ export function useUser() {
 
     const useLogin = useCallback((data) => {
         let prueba = {}
-        if (data.type_register == "google") {
+        if (data.type_register == "google" || data.type_register == "github") {
             prueba = {
                 "username": data.displayName,
                 "type_register": data.type_register,
@@ -45,7 +45,7 @@ export function useUser() {
 
     const useRegister = useCallback((data) => {
         let prueba = {}
-        if (data.type_register == "google") {
+        if (data.type_register == "google" || data.type_register == "github") {
             prueba = {
                 "username": data.displayName,
                 "email": data.email,

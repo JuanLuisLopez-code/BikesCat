@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, GithubAuthProvider } from "firebase/auth";
 import secrets from "../secrets";
 
 const firebaseConfig = {
@@ -15,5 +15,6 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const provider = new GoogleAuthProvider();
-export { auth, provider }
+const providerGoogle = new GoogleAuthProvider();
+const providerGithub = new GithubAuthProvider();
+export { auth, providerGoogle, providerGithub }

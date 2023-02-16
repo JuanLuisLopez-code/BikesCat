@@ -4,7 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import './LoginRegisterForm.scss';
-import { auth, provider } from '../../services/FirebaseService';
+import { auth, providerGoogle, providerGithub } from '../../services/FirebaseService';
 import { signInWithPopup } from "firebase/auth";
 
 const LoginRegisterForm = ({ sendData, errorsUser }) => {
@@ -112,9 +112,17 @@ const LoginRegisterForm = ({ sendData, errorsUser }) => {
         ''
 
     const getGoogleLog = () => {
-        signInWithPopup(auth, provider)
+        signInWithPopup(auth, providerGoogle)
             .then((data) => {
                 data.user.type_register = "google"
+                sendData(data.user)
+            })
+    }
+
+    const getGithubLog = () => {
+        signInWithPopup(auth, providerGithub)
+            .then((data) => {
+                data.user.type_register = "github"
                 sendData(data.user)
             })
     }
@@ -138,6 +146,12 @@ const LoginRegisterForm = ({ sendData, errorsUser }) => {
                                 <img src="https://cdn-icons-png.flaticon.com/512/300/300221.png" alt="" style={{"width" : "10%"}} />
                             </span>
                             <span className="align-middle">Login with Google</span>
+                        </button>
+                        <button className="btn btn-block social-login github" onClick={getGithubLog}>
+                            <span className="social-icons">
+                                <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="" style={{"width" : "10%"}} />
+                            </span>
+                            <span className="align-middle">Login with Github</span>
                         </button>
                     </div>
                     {redirectButton}

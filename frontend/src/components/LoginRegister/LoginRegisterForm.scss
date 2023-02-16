@@ -136,7 +136,7 @@ $font-family_1: "Roboto", sans-serif;
 
 .social-login {
     width: 75%;
-    margin: 2rem auto;
+    margin: 1rem auto;
     padding: 1rem;
     border-radius: 10px;
 }
@@ -147,5 +147,10 @@ $font-family_1: "Roboto", sans-serif;
 
 .google {
     background-color: #f67867;
+    color: #fff;
+}
+
+.github {
+    background-color: #3d2c2a;
     color: #fff;
 }
