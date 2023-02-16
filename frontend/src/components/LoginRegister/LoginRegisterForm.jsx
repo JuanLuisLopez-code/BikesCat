@@ -4,6 +4,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import './LoginRegisterForm.scss';
+import { auth, provider } from '../../services/FirebaseService';
+import { signInWithPopup } from "firebase/auth";
 
 const LoginRegisterForm = ({ sendData, errorsUser }) => {
     const { pathname } = useLocation();
@@ -109,6 +111,15 @@ const LoginRegisterForm = ({ sendData, errorsUser }) => {
         :
         ''
 
+    const getGoogleLog = () => {
+        signInWithPopup(auth, provider)
+            .then((data) => {
+                console.log(data.user)
+            })
+    }
+
+
+
     return (
         <div className="login-page">
             <div className="form">
@@ -122,6 +133,9 @@ const LoginRegisterForm = ({ sendData, errorsUser }) => {
                     {nameButton}
                     {redirectButton}
                     <p className="message">Forgot Password? <a onClick={() => navigate('/forgot')}>Click here</a></p>
+
+                    <button onClick={getGoogleLog}>SingIn with Google</button>
+
                 </form>
             </div>
         </div>
