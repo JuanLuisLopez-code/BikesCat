@@ -11,5 +11,6 @@ urlpatterns = [
     path('forgot/RecoveryPassword', UserView.as_view({'put': 'RecoveryPassword'})),
     
     path('refreshToken', UserAuthenticatedView.as_view({'post': 'refreshToken'})),
+    path('modify2FA', UserAuthenticatedView.as_view({'put': 'modify2FA'})),
     path('user', UserAuthenticatedView.as_view({'get': 'getUser'})),
 ]

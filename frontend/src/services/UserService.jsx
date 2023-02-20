@@ -33,6 +33,10 @@ const UserService = {
 
     RecoveryPassword(data, token) {
         return Api().put('forgot/RecoveryPassword', { "password": data.password, "token": atob(token) })
+    },
+    
+    Change2FA() {
+        return Api().put('modify2FA');
     }
 }
 

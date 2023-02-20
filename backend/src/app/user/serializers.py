@@ -21,7 +21,9 @@ class userSerializer(serializers.ModelSerializer):
                 'username': user.username,
                 'email': user.email,
                 'types': user.types,
-                'is_active': user.is_active
+                'is_active': user.is_active,
+                'is_2FA': user.is_2FA,
+                'countLogs': user.user.countLogs
             },
         }
 
@@ -83,6 +85,12 @@ class userSerializer(serializers.ModelSerializer):
         try:
             user = User.objects.get(username=username)
             user.countTokens = 0
+            if (user.is_2FA == True):
+                user.countLogs = user.countLogs + 1
+                user.save()
+            if (user.countLogs == 10):
+                user.countLogs = 0
+                user.save()
             user.save()
         except:
             raise serializers.ValidationError(
@@ -189,8 +197,6 @@ class userSerializer(serializers.ModelSerializer):
         }
 
     def RecoveryPassword(context):
-        print(context)
-
         tokenForgotPassword = context['token']
         password = context['password']
 
@@ -206,4 +212,23 @@ class userSerializer(serializers.ModelSerializer):
                 'Something is wrong.'
             )
 
-        return "asd"
+        return "Success"
+
+    def modify2FA(context):
+
+        username = context['username']
+
+        user = User.objects.get(username=username)
+
+        if (user.is_2FA is False):
+            user.is_2FA = True
+            user.save()
+
+        elif (user.is_2FA is True):
+            user.is_2FA = False
+            user.save()
+
+        else:
+            raise exceptions.AuthenticationFailed("error")
+
+        return "Success"

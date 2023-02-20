@@ -52,6 +52,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
 
     countTokens = models.IntegerField(default=0)
+    countLogs = models.IntegerField(default=0)
+    is_2FA = models.BooleanField(default=False)
     tokenForgotPassword = models.SlugField(
         max_length=254, unique=True, editable=False, null=True)
     type_register = models.CharField(

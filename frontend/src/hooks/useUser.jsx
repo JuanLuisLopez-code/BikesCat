@@ -136,5 +136,18 @@ export function useUser() {
             })
     }
 
-    return { user, setUser, useRegister, useLogin, useLogout, refreshToken, errorsUser, setErrorsUser, changeActive, ForgotPassword, RecoveryPassword }
+    const modify2FA = () => {
+        UserService.Change2FA()
+            .then((dataThen) => {
+                if (dataThen.status == 200) {
+                    toast.success("To apply the change you need to log in again")
+                    setTimeout(() => {
+                        navigate('/home');
+                        window.location.reload();
+                    }, 3000);
+                }
+            })
+    }
+
+    return { user, setUser, useRegister, useLogin, useLogout, refreshToken, errorsUser, setErrorsUser, changeActive, ForgotPassword, RecoveryPassword, modify2FA }
 }
