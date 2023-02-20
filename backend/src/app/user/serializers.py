@@ -88,7 +88,7 @@ class userSerializer(serializers.ModelSerializer):
             if (user.is_2FA == True):
                 user.countLogs = user.countLogs + 1
                 user.save()
-            if (user.countLogs > 9):
+            if (user.countLogs > 10):
                 user.countLogs = 0
                 user.save()
             user.save()
@@ -127,6 +127,12 @@ class userSerializer(serializers.ModelSerializer):
         try:
             user = User.objects.get(username=username)
             if (user.type_register != "email"):
+                if (user.is_2FA == True):
+                    user.countLogs = user.countLogs + 1
+                    user.save()
+                if (user.countLogs > 10):
+                    user.countLogs = 0
+                    user.save()
                 user.countTokens = 0
                 user.save()
             else:

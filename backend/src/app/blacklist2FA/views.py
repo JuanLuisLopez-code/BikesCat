@@ -22,3 +22,5 @@ class Blacklist2FAAuthenticatedView(viewsets.GenericViewSet):
             context=serializer_context)
 
         return Response(serializer)
+    
+    # def 

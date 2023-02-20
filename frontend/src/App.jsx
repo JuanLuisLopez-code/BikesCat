@@ -14,6 +14,7 @@ import { NotificationsContextProvider } from "./context/NotificationsContext";
 
 //Guards
 import AdminGuard from './services/guards/AdminGuard';
+import TwoFAGuard from './services/guards/2FAGuard';
 import { NoAuthGuard } from './services/guards/AuthGuard';
 import { AuthGuard } from './services/guards/AuthGuard';
 
@@ -58,6 +59,9 @@ function App() {
 
   //Authenticated
   const AuthenticatedUser = React.lazy(() => import('./pages/Authenticated/Authenticated'));
+
+  // 2FA
+  const TwoPageFA = React.lazy(() => import('./pages/2FA/2FA'));
 
   return (
     <div>
@@ -116,9 +120,12 @@ function App() {
                           <Route path="/forgot/:token" element={<Forgot />} />
                         </Route>
                         {/* Profile */}
-                        <Route element={<AuthGuard />}>
-                          <Route path="/profile" element={<Profile />} />
-                          <Route path="/notifications" element={<NotificationsUser />} />
+                        <Route element={<TwoFAGuard />}>
+                          <Route element={<AuthGuard />}>
+                            <Route path="/profile" element={<Profile />} />
+                            <Route path="/notifications" element={<NotificationsUser />} />
+                            <Route path="/2FA" element={<TwoPageFA />} />
+                          </Route>
                         </Route>
                         <Route path="/authenticate" element={<AuthenticatedUser />} />
                         <Route path="/authenticate/:email" element={<AuthenticatedUser />} />
