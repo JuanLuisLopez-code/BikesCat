@@ -23,7 +23,7 @@ class userSerializer(serializers.ModelSerializer):
                 'types': user.types,
                 'is_active': user.is_active,
                 'is_2FA': user.is_2FA,
-                'countLogs': user.user.countLogs
+                'countLogs': user.countLogs
             },
         }
 
@@ -88,7 +88,7 @@ class userSerializer(serializers.ModelSerializer):
             if (user.is_2FA == True):
                 user.countLogs = user.countLogs + 1
                 user.save()
-            if (user.countLogs == 10):
+            if (user.countLogs > 9):
                 user.countLogs = 0
                 user.save()
             user.save()
