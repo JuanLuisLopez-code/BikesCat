@@ -120,12 +120,10 @@ function App() {
                           <Route path="/forgot/:token" element={<Forgot />} />
                         </Route>
                         {/* Profile */}
-                        <Route element={<TwoFAGuard />}>
-                          <Route element={<AuthGuard />}>
-                            <Route path="/profile" element={<Profile />} />
-                            <Route path="/notifications" element={<NotificationsUser />} />
-                            <Route path="/2FA" element={<TwoPageFA />} />
-                          </Route>
+                        <Route element={<><TwoFAGuard />< AuthGuard /></>}>
+                          <Route path="/profile" element={<Profile />} />
+                          <Route path="/notifications" element={<NotificationsUser />} />
+                          <Route path="/2FA" element={<TwoPageFA />} />
                         </Route>
                         <Route path="/authenticate" element={<AuthenticatedUser />} />
                         <Route path="/authenticate/:email" element={<AuthenticatedUser />} />
