@@ -3,7 +3,7 @@ import QRCode from "react-qr-code";
 
 const TwoFA = () => {
 
-    const value = "Hola"
+    const value = JSON.stringify(Math.floor(Math.random() * 1000000000) + 100000000)
 
     return (
         <div style={{ height: "auto", margin: "0 auto", maxWidth: 64, width: "100%" }}>
