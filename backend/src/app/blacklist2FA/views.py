@@ -14,9 +14,23 @@ class Blacklist2FAAuthenticatedView(viewsets.GenericViewSet):
     def checkQRBD(self, request):
         bearer = request.headers['Authorization'].split()
         serializer_context = {
-            "token":bearer[1],
-            "code2FA":request.data
+            "token": bearer[1],
+            "code2FA": request.data
         }
 
-        serializer = blacklist2FASerializer.checkQRBD(context=serializer_context)
+        serializer = blacklist2FASerializer.checkQRBD(
+            context=serializer_context)
+        return Response(serializer)
+
+    def inputQR(self, request):
+        bearer = request.headers['Authorization'].split()
+        serializer_context = {
+            "token": bearer[1],
+            "code2FA": request.data
+        }
+
+
+        serializer = blacklist2FASerializer.inputQR(
+            context=serializer_context)
+
         return Response(serializer)

@@ -1,23 +1,29 @@
 import React, { useEffect, useState } from "react";
 import QRCode from "react-qr-code";
+import { toast } from "react-toastify";
 
 const TwoFA = ({ checkQRBD, input2FA }) => {
-    const [pepito, setPepito] = useState()
+    const [msg, setMsg] = useState()
     let [qr, setQr] = useState("");
 
     useEffect(() => {
-        setQr(JSON.stringify(Math.floor(Math.random() * 1000000000) + 100000000))
-        if (qr) {
-            checkQRBD(qr)
+        const randomN = JSON.stringify(Math.floor(Math.random() * 1000000000) + 100000000)
+        setQr(randomN)
+        if (randomN) {
+            checkQRBD(randomN)
         }
     }, [])
 
     const handleChange = (event) => {
-        setPepito(event.target.value)
+        setMsg(event.target.value)
     }
 
     const sendCode = () => {
-        console.log(pepito)
+        if (msg == qr) {
+            input2FA(msg)
+        } else {
+            toast.error("Bad code")
+        }
     }
     return (
         <div>

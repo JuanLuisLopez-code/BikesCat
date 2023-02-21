@@ -31,3 +31,22 @@ class blacklist2FASerializer(serializers.ModelSerializer):
                 status="pending"
             )
             return "Code created"
+
+    def inputQR(context):
+        token = context['token']
+        code2FA = context['code2FA']
+
+        payload = jwt.decode(token, settings.SECRET_KEY)
+        user = User.objects.get(username=payload['username'])
+
+        try:
+            codeQR = Blacklist2FA.objects.get(user=user, code2FA=code2FA)
+            codeQR.status = "used"
+            codeQR.save()
+            user.countLogs = 0
+            user.save()
+            return "Code updated"
+        except:
+            raise serializers.ValidationError(
+                'Algo falla.'
+            )
