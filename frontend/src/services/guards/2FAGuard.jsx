@@ -18,7 +18,7 @@ function TwoFAGuard() {
             setCount(count + 1);
             return user.countLogs == 10 ? <Navigate to="/2FA" /> : <Outlet />
         } else {
-            if (path != "2FA") {
+            if (path != "2FA" && user.countLogs == 10) {
                 toast.warning("Please enter the code of QR")
                 return <Navigate to="/2FA" />
             }

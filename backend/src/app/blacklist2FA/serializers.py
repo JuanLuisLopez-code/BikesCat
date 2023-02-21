@@ -12,18 +12,22 @@ class blacklist2FASerializer(serializers.ModelSerializer):
         model = Blacklist2FA
         fields = ('token')
 
-    def newBlackToken(context):
+    def checkQRBD(context):
 
         token = context['token']
+        code2FA = context['code2FA']
 
         payload = jwt.decode(token, settings.SECRET_KEY)
         user = User.objects.get(username=payload['username'])
-        user.countTokens = 0
-        user.save()
 
-        token_create = Blacklist2FA.objects.create(
-            token=token,
-        )
-        return {
-            'token': token_create.token,
-        }
+        Blacklist2FA.objects.filter(user=user).delete()
+        try:
+            Blacklist2FA.objects.get(user=user, code2FA=code2FA)
+            return "Code in blacklist"
+        except:
+            Blacklist2FA.objects.create(
+                user=user,
+                code2FA=code2FA,
+                status="pending"
+            )
+            return "Code created"

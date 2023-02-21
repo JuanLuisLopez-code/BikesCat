@@ -3,5 +3,5 @@ from .views import Blacklist2FAAuthenticatedView
 
 
 urlpatterns = [
-    path('', Blacklist2FAAuthenticatedView.as_view({'post': ''})),
+    path('checkQRBD', Blacklist2FAAuthenticatedView.as_view({'put': 'checkQRBD'})),
 ]

@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import viewsets
 from rest_framework.exceptions import NotFound
 from .models import Blacklist2FA
-from .serializers import blacklistSerializer
+from .serializers import blacklist2FASerializer
 
 from rest_framework.permissions import (IsAuthenticated)
 
@@ -11,16 +11,12 @@ from rest_framework.permissions import (IsAuthenticated)
 class Blacklist2FAAuthenticatedView(viewsets.GenericViewSet):
     permission_classes = [IsAuthenticated]
 
-    def logout(self, request):
+    def checkQRBD(self, request):
         bearer = request.headers['Authorization'].split()
-
         serializer_context = {
-            'token': bearer[1]
+            "token":bearer[1],
+            "code2FA":request.data
         }
 
-        serializer = blacklistSerializer.newBlackToken(
-            context=serializer_context)
-
+        serializer = blacklist2FASerializer.checkQRBD(context=serializer_context)
         return Response(serializer)
-    
-    # def 
