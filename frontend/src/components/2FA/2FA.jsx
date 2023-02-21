@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import QRCode from "react-qr-code";
 import { toast } from "react-toastify";
+import '../../pages/Dashboard/Dashboard.scss'
 
 const TwoFA = ({ checkQRBD, input2FA }) => {
     const [msg, setMsg] = useState()
@@ -41,9 +42,9 @@ const TwoFA = ({ checkQRBD, input2FA }) => {
                 />
             </div>
             <div>
-                <input type="number" placeholder="Number QR" onChange={handleChange} />
+                <input type="number" placeholder="Number QR" onChange={handleChange} style={{ marginLeft: "42.5%"}} />
             </div>
-            <button onClick={sendCode}>Send Code</button>
+            <button className="custom-btn btn-3" onClick={sendCode} style={{marginLeft: "44.5%"}}><span>Send Code</span></button>
         </div>
     )
 }
