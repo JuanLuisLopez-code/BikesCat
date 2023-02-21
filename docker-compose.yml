@@ -13,18 +13,6 @@ services:
       - "3306:3306"
     volumes:
       - dbdata:/var/lib/mysql
-      - ./backend/sql/dump.sql:/docker-entrypoint-initdb.d/datadump.sql 
-  phpmyadmin_CRUD:
-    image: phpmyadmin/phpmyadmin:latest
-    container_name: pma
-    links:
-      - db
-    environment:
-      PMA_HOST: db
-      PMA_PORT: 3306
-      PMA_ARBITRARY: 1
-    restart: always
-    ports:
-      - 8080:80
+      - ./backend/sql/CatBikes.sql:/docker-entrypoint-initdb.d/datadump.sql 
 volumes:
   dbdata:
