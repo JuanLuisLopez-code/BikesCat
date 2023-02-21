@@ -91,7 +91,7 @@ function App() {
                         <Route path="/" element={<Home />} />
                         <Route path="/home" element={<Home />} />
 
-                        <Route element={<AdminGuard />}>
+                        <Route element={<><AdminGuard /><TwoFAGuard /></>}>
                           <Route path="/dashboard" element={<Dashboard />} />
                           {/* Dashboard Bikes */}
                           <Route path="/dashboard/bikes" element={<BikesList />} />
@@ -110,8 +110,10 @@ function App() {
                           <Route path="/dashboard/incidents" element={<IncidentsList />} />
                         </Route>
                         {/* Stations Client */}
-                        <Route path="/stations" element={<StationsClientList />} />
-                        <Route path="/stations/:slug" element={<StationDetails />} />
+                        <Route element={<><TwoFAGuard /></>}>
+                          <Route path="/stations" element={<StationsClientList />} />
+                          <Route path="/stations/:slug" element={<StationDetails />} />
+                        </Route>
                         {/* Login/Register */}
                         <Route element={<NoAuthGuard />}>
                           <Route path="/login" element={<Login />} />
@@ -137,7 +139,7 @@ function App() {
           </UserContextProvider>
         </BrowserRouter>
       </Suspense>
-    </div>
+    </div >
   );
 }
 

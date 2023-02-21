@@ -17,6 +17,7 @@ export function use2FA() {
                     toast.success("2FA successfully")
                     setTimeout(() => {
                         navigate("/home")
+                        window.location.reload()
                     }, 3000);
                 }
             })
