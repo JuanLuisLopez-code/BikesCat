@@ -4,15 +4,20 @@ import { toast } from "react-toastify";
 
 const TwoFA = ({ checkQRBD, input2FA }) => {
     const [msg, setMsg] = useState()
+    const [countTime, setCountTime] = useState(0)
     let [qr, setQr] = useState("");
 
     useEffect(() => {
+        toast.info("Every 30 seconds change QR")
         const randomN = JSON.stringify(Math.floor(Math.random() * 1000000000) + 100000000)
         setQr(randomN)
         if (randomN) {
             checkQRBD(randomN)
         }
-    }, [])
+    }, [countTime])
+    setInterval(() => {
+        setCountTime(countTime + 1);
+    }, 30000);
 
     const handleChange = (event) => {
         setMsg(event.target.value)
