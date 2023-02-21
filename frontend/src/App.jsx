@@ -14,6 +14,7 @@ import { NotificationsContextProvider } from "./context/NotificationsContext";
 
 //Guards
 import AdminGuard from './services/guards/AdminGuard';
+import TwoFAGuard from './services/guards/2FAGuard';
 import { NoAuthGuard } from './services/guards/AuthGuard';
 import { AuthGuard } from './services/guards/AuthGuard';
 
@@ -59,6 +60,9 @@ function App() {
   //Authenticated
   const AuthenticatedUser = React.lazy(() => import('./pages/Authenticated/Authenticated'));
 
+  // 2FA
+  const TwoPageFA = React.lazy(() => import('./pages/2FA/2FA'));
+
   return (
     <div>
       <Suspense fallback={<Loading />}>
@@ -87,7 +91,7 @@ function App() {
                         <Route path="/" element={<Home />} />
                         <Route path="/home" element={<Home />} />
 
-                        <Route element={<AdminGuard />}>
+                        <Route element={<><AdminGuard /><TwoFAGuard /></>}>
                           <Route path="/dashboard" element={<Dashboard />} />
                           {/* Dashboard Bikes */}
                           <Route path="/dashboard/bikes" element={<BikesList />} />
@@ -106,8 +110,10 @@ function App() {
                           <Route path="/dashboard/incidents" element={<IncidentsList />} />
                         </Route>
                         {/* Stations Client */}
-                        <Route path="/stations" element={<StationsClientList />} />
-                        <Route path="/stations/:slug" element={<StationDetails />} />
+                        <Route element={<><TwoFAGuard /></>}>
+                          <Route path="/stations" element={<StationsClientList />} />
+                          <Route path="/stations/:slug" element={<StationDetails />} />
+                        </Route>
                         {/* Login/Register */}
                         <Route element={<NoAuthGuard />}>
                           <Route path="/login" element={<Login />} />
@@ -116,9 +122,10 @@ function App() {
                           <Route path="/forgot/:token" element={<Forgot />} />
                         </Route>
                         {/* Profile */}
-                        <Route element={<AuthGuard />}>
+                        <Route element={<><TwoFAGuard />< AuthGuard /></>}>
                           <Route path="/profile" element={<Profile />} />
                           <Route path="/notifications" element={<NotificationsUser />} />
+                          <Route path="/2FA" element={<TwoPageFA />} />
                         </Route>
                         <Route path="/authenticate" element={<AuthenticatedUser />} />
                         <Route path="/authenticate/:email" element={<AuthenticatedUser />} />
@@ -132,7 +139,7 @@ function App() {
           </UserContextProvider>
         </BrowserRouter>
       </Suspense>
-    </div>
+    </div >
   );
 }
 

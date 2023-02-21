@@ -117,3 +117,13 @@ class UserAuthenticatedView(viewsets.GenericViewSet):
 
         serializer = userSerializer.refreshToken(serializer_context)
         return Response(serializer)
+    
+    def modify2FA(self, request):
+        username = request.user
+
+        serializer_context = {
+            'username': username
+        }
+
+        serializer = userSerializer.modify2FA(serializer_context)
+        return Response(serializer)

@@ -12,10 +12,11 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Blacklist',
+            name='Blacklist2FA',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('token', models.SlugField(editable=False, max_length=254, unique=True)),
+                ('code2FA', models.IntegerField(default=None)),
+                ('status', models.CharField(default='pending', max_length=100)),
             ],
         ),
     ]

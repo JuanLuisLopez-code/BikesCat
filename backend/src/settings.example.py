@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'src.app.stations',
     'src.app.user',
     'src.app.blacklist',
+    'src.app.blacklist2FA',
     'src.app.rent',
     'src.app.incidents',
 ]
