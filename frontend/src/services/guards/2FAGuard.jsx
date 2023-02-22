@@ -23,8 +23,6 @@ function TwoFAGuard() {
                 return <Navigate to="/2FA" />
             }
         }
-    } else {
-        return <Outlet />
     }
 }
 
