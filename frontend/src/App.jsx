@@ -16,6 +16,7 @@ import { NotificationsContextProvider } from "./context/NotificationsContext";
 import AdminGuard from './services/guards/AdminGuard';
 import TwoFAGuard from './services/guards/2FAGuard';
 import { NoAuthGuard } from './services/guards/AuthGuard';
+import { Help2FA } from './services/guards/AuthGuard';
 import { AuthGuard } from './services/guards/AuthGuard';
 
 function App() {
@@ -110,7 +111,7 @@ function App() {
                           <Route path="/dashboard/incidents" element={<IncidentsList />} />
                         </Route>
                         {/* Stations Client */}
-                        <Route element={<><TwoFAGuard /></>}>
+                        <Route element={<><TwoFAGuard /><Help2FA /></>}>
                           <Route path="/stations" element={<StationsClientList />} />
                           <Route path="/stations/:slug" element={<StationDetails />} />
                         </Route>

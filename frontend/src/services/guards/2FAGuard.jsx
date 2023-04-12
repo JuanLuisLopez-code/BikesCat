@@ -21,7 +21,7 @@ function TwoFAGuard() {
             if (path != "2FA" && user.countLogs == 10) {
                 toast.warning("Please enter the code of QR")
                 return <Navigate to="/2FA" />
-            }
+            } 
         }
     }
 }

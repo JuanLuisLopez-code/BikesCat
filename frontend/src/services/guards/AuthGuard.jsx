@@ -12,6 +12,11 @@ export function NoAuthGuard() {
     return !isAuth ? <Outlet /> : <Navigate to="/home" />
 }
 
+export function Help2FA() {
+    const { isAuth } = useContext(UserContext);
+    return isAuth ? <Outlet /> : <Navigate to="/home" />
+}
+
 export function AuthGuard() {
     const navigate = useNavigate();
     const { isAuth } = useContext(UserContext);
